@@ -6,15 +6,17 @@
 :root {
     /* Champagne gold — sampled from the card ornaments */
     --gold:       #e8c896;
+    --gold-heading: #d4af37;
     --gold-light: #f4ddb4;
     --gold-dim:   rgba(232, 200, 150, 0.18);
 
-    /* Light purple — splash glow, favicon, thank-you tint */
-    --ak:         #d2b3f0;
-    --ak-light:   #ead6fb;
-    --purple:     #b48ad8;
-    --purple-deep:#7a4ea8;
-    --purple-dim: rgba(210, 179, 240, 0.22);
+    /* Purple — letter fill, highlight is 1–2 shades lighter */
+    --ak:         #614280;
+    --ak-shine:   #704c94;
+    --ak-light:   #704c94;
+    --purple:     #614280;
+    --purple-deep:#3d2854;
+    --purple-dim: rgba(97, 66, 128, 0.22);
 
     /* Neutrals — dark plum panels */
     --ink:        #120814;
@@ -83,7 +85,6 @@ body.splash-intro {
 }
 
 .splash-inner {
-    position: relative;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -91,62 +92,40 @@ body.splash-intro {
     gap: 18px;
 }
 
-.splash-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: min(78vw, 460px);
-    height: min(78vw, 460px);
-    transform: translate(-50%, -58%);
-    border-radius: 50%;
-    background: radial-gradient(
-        circle,
-        rgba(210, 179, 240, 0.42) 0%,
-        rgba(180, 138, 216, 0.16) 38%,
-        rgba(122, 78, 168, 0.05) 58%,
-        transparent 72%
-    );
-    pointer-events: none;
-    z-index: 0;
-    animation: pulseGlow 2.4s ease-in-out infinite;
-}
-
-.splash-monogram,
-.splash-rule,
-.splash-sub,
-.tap-label {
-    position: relative;
-    z-index: 1;
-}
-
 .splash-monogram {
     font-family: var(--ff-serif);
     font-size: clamp(3.5rem, 14vw, 7rem);
-    color: var(--ak);
     letter-spacing: -0.02em;
     line-height: 1;
-    text-shadow:
-        0 0 18px rgba(210, 179, 240, 0.65),
-        0 0 42px rgba(180, 138, 216, 0.4),
-        0 0 88px rgba(122, 78, 168, 0.28);
-    animation: breathePurple 2.4s ease-in-out infinite;
+    color: var(--ak);
+    background-image: linear-gradient(
+        100deg,
+        var(--ak) 0%,
+        var(--ak) 36%,
+        var(--ak-shine) 50%,
+        var(--ak) 64%,
+        var(--ak) 100%
+    );
+    background-size: 240% 100%;
+    background-position: 100% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: letterShine 6s ease-in-out infinite;
 }
 .mono-amp {
     font-style: italic;
-    color: var(--ak-light);
     font-size: 0.75em;
-    text-shadow:
-        0 0 16px rgba(234, 214, 251, 0.7),
-        0 0 36px rgba(210, 179, 240, 0.4);
-    animation: breathePurpleAmp 2.4s ease-in-out infinite;
+    color: inherit;
+    -webkit-text-fill-color: inherit;
+    background: none;
 }
 
 .splash-rule {
     width: 60px;
     height: 1px;
     background: var(--ak);
-    opacity: 0.55;
-    box-shadow: 0 0 12px rgba(210, 179, 240, 0.55);
+    opacity: 0.7;
 }
 
 .splash-sub {
@@ -155,7 +134,6 @@ body.splash-intro {
     letter-spacing: 6px;
     color: var(--ak);
     text-transform: uppercase;
-    text-shadow: 0 0 16px rgba(210, 179, 240, 0.45);
 }
 
 .tap-label {
@@ -169,9 +147,12 @@ body.splash-intro {
 
 @media (prefers-reduced-motion: reduce) {
     .splash { transition: none; }
-    .splash-monogram,
-    .mono-amp,
-    .splash-glow { animation: none; }
+    .splash-monogram {
+        animation: none;
+        background: none;
+        -webkit-text-fill-color: var(--ak);
+        color: var(--ak);
+    }
 }
 
 /* ── HERO ────────────────────────────────────────────── */
@@ -275,7 +256,7 @@ body.hero-revealed .hero { filter: brightness(1); }
     text-align: center;
     padding: clamp(100px, 16vw, 160px) 24px;
     background:
-        linear-gradient(rgba(28, 10, 42, 0.55), rgba(18, 8, 20, 0.78)),
+        linear-gradient(rgba(42, 22, 58, 0.22), rgba(18, 8, 20, 0.38)),
         url('HAK08808.JPG') center / cover no-repeat;
     opacity: 0;
     transform: translateY(40px);
@@ -286,7 +267,7 @@ body.hero-revealed .hero { filter: brightness(1); }
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: rgba(180, 138, 216, 0.28);
+    background: rgba(107, 77, 138, 0.12);
     mix-blend-mode: color;
     pointer-events: none;
 }
@@ -294,38 +275,30 @@ body.hero-revealed .hero { filter: brightness(1); }
 
 .ty-ornament {
     font-size: 2rem;
-    color: var(--ak);
-    opacity: 0.7;
+    color: var(--gold-heading);
     margin-bottom: 24px;
-    text-shadow: 0 0 18px rgba(210, 179, 240, 0.45);
 }
 .ty-heading {
     font-family: var(--ff-serif);
     font-size: clamp(2.4rem, 7vw, 4rem);
-    color: var(--gold);
+    color: var(--gold-heading);
     font-weight: 400;
     margin-bottom: 18px;
     text-shadow: 0 2px 18px rgba(18, 8, 20, 0.4);
 }
 .section-thankyou p {
-    color: #eadff3;
+    font-family: var(--ff-serif);
     font-size: 1.05rem;
+    color: var(--cream);
+    font-weight: 400;
     line-height: 1.9;
-    text-shadow: 0 1px 12px rgba(18, 8, 20, 0.45);
+    text-shadow: 0 1px 12px rgba(18, 8, 20, 0.4);
 }
 
 /* ── ANIMATIONS ──────────────────────────────────────── */
-@keyframes breathePurple {
-    0%, 100% { color: #b48ad8; }
-    50%      { color: #d2b3f0; }
-}
-@keyframes breathePurpleAmp {
-    0%, 100% { color: #d2b3f0; }
-    50%      { color: #ead6fb; }
-}
-@keyframes pulseGlow {
-    0%, 100% { opacity: 0.72; transform: translate(-50%, -58%) scale(0.96); }
-    50%      { opacity: 1; transform: translate(-50%, -58%) scale(1.06); }
+@keyframes letterShine {
+    0%, 12%  { background-position: 100% 50%; }
+    88%, 100% { background-position: 0% 50%; }
 }
 @keyframes blink {
     0%, 100% { opacity: 0.4; }
