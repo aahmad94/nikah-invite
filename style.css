@@ -6,7 +6,6 @@
 :root {
     /* Champagne gold — sampled from the card ornaments */
     --gold:       #e8c896;
-    --gold-heading: #d4af37;
     --gold-light: #f4ddb4;
     --gold-dim:   rgba(232, 200, 150, 0.18);
 
@@ -275,13 +274,13 @@ body.hero-revealed .hero { filter: brightness(1); }
 
 .ty-ornament {
     font-size: 2rem;
-    color: var(--gold-heading);
+    color: #d8bfd8;
     margin-bottom: 24px;
 }
 .ty-heading {
     font-family: var(--ff-serif);
     font-size: clamp(2.4rem, 7vw, 4rem);
-    color: var(--gold-heading);
+    color: #d8bfd8;
     font-weight: 400;
     margin-bottom: 18px;
     text-shadow: 0 2px 18px rgba(18, 8, 20, 0.4);
