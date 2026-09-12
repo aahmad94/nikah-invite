@@ -10,13 +10,13 @@
     --gold-light: #f4ddb4;
     --gold-dim:   rgba(232, 200, 150, 0.18);
 
-    /* Purple — letter fill, highlight is 1–2 shades lighter */
-    --ak:         #614280;
-    --ak-shine:   #704c94;
-    --ak-light:   #704c94;
-    --purple:     #614280;
+    /* Purple — letter fill, one notch toward the card plum; highlight 1–2 shades lighter */
+    --ak:         #734280;
+    --ak-shine:   #834b91;
+    --ak-light:   #834b91;
+    --purple:     #734280;
     --purple-deep:#3d2854;
-    --purple-dim: rgba(97, 66, 128, 0.22);
+    --purple-dim: rgba(115, 66, 128, 0.22);
 
     /* Neutrals — dark plum panels */
     --ink:        #120814;
@@ -188,12 +188,12 @@ body.splash-intro {
 }
 body.hero-revealed .hero { filter: brightness(1); }
 
-/* Contained invitation card — SVG art 795×1113, damask shows around it */
+/* Contained invitation card — SVG art 360×504, damask shows around it */
 .hero-stage {
     position: relative;
     z-index: 1;
-    aspect-ratio: 795 / 1113;
-    width: min(94%, calc((100dvh - 72px) * 795 / 1113));
+    aspect-ratio: 360 / 504;
+    width: min(94%, calc((100dvh - 72px) * 360 / 504));
     height: auto;
     max-height: calc(100dvh - 72px);
     margin-inline: auto;
@@ -218,13 +218,13 @@ body.hero-revealed .hero { filter: brightness(1); }
         min-height: 0;
         max-height: none;
         padding: 0;
-        background-color: var(--cream);
+        background-color: #6e254d;
         background-image: none;
         overflow: hidden;
     }
     .hero::before { display: none; }
     .hero-stage {
-        aspect-ratio: 795 / 1113;
+        aspect-ratio: 360 / 504;
         width: 100%;
         height: auto;
         max-height: none;
@@ -315,7 +315,7 @@ body.hero-revealed .hero { filter: brightness(1); }
 
 @media (orientation: landscape) and (max-height: 520px) {
     .hero-stage {
-        width: min(94%, calc((100dvh - 56px) * 795 / 1113));
+        width: min(94%, calc((100dvh - 56px) * 360 / 504));
         max-height: calc(100dvh - 56px);
     }
 }
