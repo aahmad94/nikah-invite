@@ -4,27 +4,27 @@
 
 /* ── Tokens ─────────────────────────────────────────── */
 :root {
-    /* Champagne gold — sampled from the card ornaments */
+    /* Champagne gold */
     --gold:       #e8c896;
     --gold-light: #f4ddb4;
     --gold-dim:   rgba(232, 200, 150, 0.18);
 
-    /* Purple — letter fill, one notch toward the card plum; highlight 1–2 shades lighter */
-    --ak:         #734280;
-    --ak-shine:   #834b91;
-    --ak-light:   #834b91;
-    --purple:     #734280;
-    --purple-deep:#3d2854;
-    --purple-dim: rgba(115, 66, 128, 0.22);
+    /* Sage — sampled from the card florals; highlight 1–2 shades lighter */
+    --ak:         #7a7f52;
+    --ak-shine:   #969a70;
+    --ak-light:   #969a70;
+    --sage:       #7a7f52;
+    --sage-deep:  #4a4e32;
+    --sage-dim:   rgba(122, 127, 82, 0.22);
 
-    /* Neutrals — dark plum panels */
-    --ink:        #120814;
-    --deep:       #160c18;
-    --panel:      #1c1222;
-    --panel-deep: #140c18;
-    --panel2:     #1a101e;
+    /* Neutrals — dark olive panels */
+    --ink:        #10140e;
+    --deep:       #121610;
+    --panel:      #161a12;
+    --panel-deep: #12160e;
+    --panel2:     #181c14;
     --text:       #e8e8e8;
-    --muted:      #b9a8c4;
+    --muted:      #b4baa4;
     --cream:      #f8efe2;
     --ff-serif:   'Playfair Display', 'Cormorant Garamond', Georgia, serif;
     --ff-sans:    'Inter', system-ui, sans-serif;
@@ -35,15 +35,32 @@
 /* ── Reset ───────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; background: var(--panel); }
+html { scroll-behavior: smooth; background: var(--panel); overflow-x: hidden; }
 
 body {
     font-family: var(--ff-sans);
     background: var(--panel);
     color: var(--text);
     line-height: 1.7;
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+}
+
+/* Viewport-fixed damask — visible on mobile under the card until sections slide in */
+.damask-bg {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-color: #2a351c;
+    background-image: url('assets/damask.jpg');
+    background-image: image-set(
+        url('assets/damask.webp') type('image/webp'),
+        url('assets/damask.jpg') type('image/jpeg')
+    );
+    background-size: 300px;
+    background-repeat: repeat;
+    background-position: center;
 }
 
 body.splash-intro {
@@ -110,7 +127,7 @@ body.splash-intro {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: letterShine 6s ease-in-out infinite;
+    animation: letterShine 3.6s ease-in-out infinite alternate;
 }
 .mono-amp {
     font-style: italic;
@@ -165,8 +182,8 @@ body.splash-intro {
     text-align: center;
     position: relative;
     overflow: hidden;
-    padding: 10px 16px 12px;
-    background-color: #2a1528;
+    padding: 10px 16px 0;
+    background-color: #2a351c;
     background-image: url('assets/damask.jpg');
     background-image: image-set(
         url('assets/damask.webp') type('image/webp'),
@@ -182,17 +199,17 @@ body.splash-intro {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse at 50% 50%, rgba(42, 21, 40, 0.18) 0%, rgba(18, 8, 20, 0.46) 100%);
+        radial-gradient(ellipse at 50% 50%, rgba(42, 53, 28, 0.18) 0%, rgba(16, 20, 14, 0.46) 100%);
     pointer-events: none;
 }
 body.hero-revealed .hero { filter: brightness(1); }
 
-/* Contained invitation card — SVG art 360×504, damask shows around it */
+/* Contained invitation card — SVG art 420×595.5, damask shows around it */
 .hero-stage {
     position: relative;
     z-index: 1;
-    aspect-ratio: 360 / 504;
-    width: min(94%, calc((100dvh - 72px) * 360 / 504));
+    aspect-ratio: 420 / 595.5;
+    width: min(94%, calc((100dvh - 72px) * 420 / 595.5));
     height: auto;
     max-height: calc(100dvh - 72px);
     margin-inline: auto;
@@ -209,21 +226,31 @@ body.hero-revealed .hero { filter: brightness(1); }
     height: auto;
 }
 
-/* Mobile portrait — hero is exactly the card */
+main {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Mobile portrait — card is full-bleed; damask-bg shows until thank-you slides in */
 @media (max-width: 700px) and (orientation: portrait) {
+    html, body {
+        background-color: #2a351c;
+        background-image: none;
+    }
     .hero {
         width: 100%;
         height: auto;
         min-height: 0;
         max-height: none;
         padding: 0;
-        background-color: #6e254d;
-        background-image: none;
+        background: none;
         overflow: hidden;
     }
     .hero::before { display: none; }
     .hero-stage {
-        aspect-ratio: 360 / 504;
+        aspect-ratio: 420 / 595.5;
         width: 100%;
         height: auto;
         max-height: none;
@@ -255,35 +282,35 @@ body.hero-revealed .hero { filter: brightness(1); }
     text-align: center;
     padding: clamp(100px, 16vw, 160px) 24px;
     background:
-        linear-gradient(rgba(42, 22, 58, 0.22), rgba(18, 8, 20, 0.38)),
+        linear-gradient(rgba(32, 40, 22, 0.22), rgba(12, 16, 10, 0.38)),
         url('HAK08808.JPG') center / cover no-repeat;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+    transform: translateY(100%);
 }
 .section-thankyou::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: rgba(107, 77, 138, 0.12);
+    background: rgba(150, 154, 112, 0.14);
     mix-blend-mode: color;
     pointer-events: none;
 }
-.section-thankyou.visible { opacity: 1; transform: translateY(0); }
+.section-thankyou.visible {
+    animation: sectionSlide 2.8s cubic-bezier(0.16, 1.12, 0.3, 1) both;
+}
 
 .ty-ornament {
     font-size: 2rem;
-    color: #d8bfd8;
+    color: #c5c9a8;
     margin-bottom: 24px;
 }
 .ty-heading {
     font-family: var(--ff-serif);
     font-size: clamp(2.4rem, 7vw, 4rem);
-    color: #d8bfd8;
+    color: #c5c9a8;
     font-weight: 400;
     margin-bottom: 18px;
-    text-shadow: 0 2px 18px rgba(18, 8, 20, 0.4);
+    text-shadow: 0 2px 18px rgba(12, 16, 10, 0.4);
 }
 .section-thankyou p {
     font-family: var(--ff-serif);
@@ -291,17 +318,28 @@ body.hero-revealed .hero { filter: brightness(1); }
     color: var(--cream);
     font-weight: 400;
     line-height: 1.9;
-    text-shadow: 0 1px 12px rgba(18, 8, 20, 0.4);
+    text-shadow: 0 1px 12px rgba(12, 16, 10, 0.4);
 }
 
 /* ── ANIMATIONS ──────────────────────────────────────── */
 @keyframes letterShine {
-    0%, 12%  { background-position: 100% 50%; }
-    88%, 100% { background-position: 0% 50%; }
+    from { background-position: 100% 50%; }
+    to   { background-position: 0% 50%; }
 }
 @keyframes blink {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }
+}
+@keyframes sectionSlide {
+    0%   { transform: translateY(100%); }
+    100% { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .section-thankyou {
+        transform: none;
+        animation: none;
+    }
 }
 
 /* ── RESPONSIVE ──────────────────────────────────────── */
@@ -314,7 +352,7 @@ body.hero-revealed .hero { filter: brightness(1); }
 
 @media (orientation: landscape) and (max-height: 520px) {
     .hero-stage {
-        width: min(94%, calc((100dvh - 56px) * 360 / 504));
+        width: min(94%, calc((100dvh - 56px) * 420 / 595.5));
         max-height: calc(100dvh - 56px);
     }
 }
