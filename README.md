@@ -1,6 +1,6 @@
-# Nikkah · Adeel & Khadija
+# Nikah · Adeel & Khadija
 
-Digital invitation for the Nikkah of Adeel Ahmad and Khadija Butt.
+Digital invitation for the Nikah of Adeel Ahmad and Khadija Butt.
 
 Sunday, 8 November 2026 · 3:00 PM · Sumbal Chak Farmhouse, Raiwind Road, Lahore.
 
