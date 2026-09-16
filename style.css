@@ -35,17 +35,17 @@
 /* ── Reset ───────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; background: var(--panel); overflow-x: hidden; }
+html { scroll-behavior: smooth; background: #2a351c; overflow-x: hidden; }
 
 body {
     font-family: var(--ff-sans);
-    background: var(--panel);
+    background: #2a351c;
     color: var(--text);
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
 }
 
-/* Viewport-fixed damask — visible on mobile under the card until sections slide in */
+/* Viewport-fixed damask — the only damask layer; sections are transparent over it */
 .damask-bg {
     display: block;
     position: fixed;
@@ -61,6 +61,15 @@ body {
     background-size: 300px;
     background-repeat: repeat;
     background-position: center;
+}
+.damask-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Same dark olive veil that used to sit on the card-section damask */
+    background:
+        radial-gradient(ellipse at 50% 50%, rgba(16, 20, 14, 0.28) 0%, rgba(12, 16, 10, 0.52) 100%);
+    pointer-events: none;
 }
 
 body.splash-intro {
@@ -183,33 +192,15 @@ body.splash-intro {
     position: relative;
     overflow: hidden;
     padding: 10px 16px 0;
-    background-color: #2a351c;
-    background-image: url('assets/damask.jpg');
-    background-image: image-set(
-        url('assets/damask.webp') type('image/webp'),
-        url('assets/damask.jpg') type('image/jpeg')
-    );
-    background-size: 300px;
-    background-position: center;
-    filter: brightness(0.72);
-    transition: filter 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    background: none;
 }
-.hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(ellipse at 50% 50%, rgba(42, 53, 28, 0.18) 0%, rgba(16, 20, 14, 0.46) 100%);
-    pointer-events: none;
-}
-body.hero-revealed .hero { filter: brightness(1); }
 
-/* Contained invitation card — SVG art 420×595.5, damask shows around it */
+/* Contained invitation card — SVG art 675×1200 (9:16), damask shows around it */
 .hero-stage {
     position: relative;
     z-index: 1;
-    aspect-ratio: 420 / 595.5;
-    width: min(94%, calc((100dvh - 72px) * 420 / 595.5));
+    aspect-ratio: 9 / 16;
+    width: min(94%, calc((100dvh - 72px) * 9 / 16));
     height: auto;
     max-height: calc(100dvh - 72px);
     margin-inline: auto;
@@ -218,7 +209,10 @@ body.hero-revealed .hero { filter: brightness(1); }
     box-shadow:
         0 0 0 1px rgba(232, 200, 150, 0.22),
         0 28px 80px rgba(0, 0, 0, 0.55);
+    filter: brightness(0.72);
+    transition: filter 0.9s cubic-bezier(0.4, 0, 0.2, 1);
 }
+body.hero-revealed .hero-stage { filter: brightness(1); }
 
 .hero-card {
     display: block;
@@ -231,6 +225,8 @@ main {
     z-index: 1;
     display: flex;
     flex-direction: column;
+    /* Empty 16px slit — fixed damask shows through while the sections scroll */
+    gap: 16px;
 }
 
 /* Mobile portrait — card is full-bleed; damask-bg shows until thank-you slides in */
@@ -245,12 +241,10 @@ main {
         min-height: 0;
         max-height: none;
         padding: 0;
-        background: none;
         overflow: hidden;
     }
-    .hero::before { display: none; }
     .hero-stage {
-        aspect-ratio: 420 / 595.5;
+        aspect-ratio: 9 / 16;
         width: 100%;
         height: auto;
         max-height: none;
@@ -352,7 +346,7 @@ main {
 
 @media (orientation: landscape) and (max-height: 520px) {
     .hero-stage {
-        width: min(94%, calc((100dvh - 56px) * 420 / 595.5));
+        width: min(94%, calc((100dvh - 56px) * 9 / 16));
         max-height: calc(100dvh - 56px);
     }
 }
